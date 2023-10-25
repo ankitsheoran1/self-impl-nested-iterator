@@ -52,8 +52,6 @@ fn main() {
 // }
 
 
-// 2
-
 pub fn flatten<I>(iter: I) -> Flatten<I> 
 where 
 I: Iterator,
@@ -98,16 +96,8 @@ O::Item: IntoIterator, {
         } else {
             self.back_iter.as_mut()?.next();
         }
-        // let next_inner_iter = self.outer.next()?.into_iter();
-        // self.inner = Some(next_inner_iter);
     }
-        //self.inner.as_mut().unwrap().next();
-        // let mut inner_iter = inner_item.into_iter();
-        // inner_iter.next()
-        // self.outer.next().and_then(|inner| inner.into_iter().next())
-        //None 
-    }
-
+}
 }
 
 impl <O> DoubleEndedIterator for Flatten<O> 
@@ -130,13 +120,7 @@ O::Item:IntoIterator,
             } else {
                 self.next_iter.as_mut()?.next_back();
             }
-            // self.next_iter = Some(next_inner_iter);
         }
-            //self.inner.as_mut().unwrap().next();
-            // let mut inner_iter = inner_item.into_iter();
-            // inner_iter.next()
-            // self.outer.next().and_then(|inner| inner.into_iter().next())
-            //None 
         
     } 
 
@@ -242,14 +226,6 @@ O::Item: IntoIterator, {
         } else {
             self.back_iter.as_mut()?.next();
         }
-        // let next_inner_iter = self.outer.next()?.into_iter();
-        // self.inner = Some(next_inner_iter);
-    }
-        //self.inner.as_mut().unwrap().next();
-        // let mut inner_iter = inner_item.into_iter();
-        // inner_iter.next()
-        // self.outer.next().and_then(|inner| inner.into_iter().next())
-        //None 
     }
 
 }
@@ -274,13 +250,6 @@ O::Item:IntoIterator,
             } else {
                 self.next_iter.as_mut()?.next_back();
             }
-            // self.next_iter = Some(next_inner_iter);
-        }
-            //self.inner.as_mut().unwrap().next();
-            // let mut inner_iter = inner_item.into_iter();
-            // inner_iter.next()
-            // self.outer.next().and_then(|inner| inner.into_iter().next())
-            //None 
         
     } 
 
@@ -291,26 +260,6 @@ O::Item:IntoIterator,
 mod tests {
 
     use super::*;
-
-    // #[test]
-    // fn empty() {
-    //   assert_eq!(flatten(std::iter::empty::<Vec<()>>()).count(), 0);
-    // }
-
-    // #[test]
-    // fn once() {
-    //   assert_eq!(flatten(std::iter::once(vec!["a"])).count(), 1);
-    // }
-
-    // #[test]
-    // fn two() {
-    //   assert_eq!(flatten(vec![vec!["a", "c"], vec!["b"]].into_iter()).count(), 3);
-    // }
-
-    // #[test]
-    // fn four() {
-    //   assert_eq!(flatten(vec![vec!["a", "c"], vec!["b"], vec![], vec!["b"]].into_iter()).count(), 4);
-    // }
 
     #[test]
     fn empty() {
@@ -331,11 +280,6 @@ mod tests {
     fn four() {
       assert_eq!(flatten(vec![vec!["a", "c"], vec!["b"], vec![], vec!["b"]].into_iter()).count(), 4);
     }
-
-    // #[test]
-    // fn reverse() {
-    //   assert_eq!(flatten(std::iter::once(vec!["a", "b"])).rev().collect()::<Vec<_>>(), vec!["b", "a"]);
-    // }
 
     #[test]
     fn reverse() {
