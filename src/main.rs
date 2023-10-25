@@ -52,83 +52,83 @@ fn main() {
 // }
 
 
-pub fn flatten<I>(iter: I) -> Flatten<I> 
-where 
-I: Iterator,
-I::Item:IntoIterator {
-   Flatten::new(iter)
-}
+// pub fn flatten<I>(iter: I) -> Flatten<I> 
+// where 
+// I: Iterator,
+// I::Item:IntoIterator {
+//    Flatten::new(iter)
+// }
 
 
-pub struct Flatten<O> 
-where 
-O: Iterator,
-O::Item:IntoIterator {
-    outer: O,
-    next_iter:  Option<<O::Item as IntoIterator>::IntoIter>,
-    back_iter:  Option<<O::Item as IntoIterator>::IntoIter>,
-} 
+// pub struct Flatten<O> 
+// where 
+// O: Iterator,
+// O::Item:IntoIterator {
+//     outer: O,
+//     next_iter:  Option<<O::Item as IntoIterator>::IntoIter>,
+//     back_iter:  Option<<O::Item as IntoIterator>::IntoIter>,
+// } 
 
-impl<O> Flatten<O> 
-where 
-O:Iterator,
-O::Item:IntoIterator {
-    fn new(iter: O) -> Self {
-        Flatten { outer: iter, next_iter: None, back_iter: None }
-    }
-}
+// impl<O> Flatten<O> 
+// where 
+// O:Iterator,
+// O::Item:IntoIterator {
+//     fn new(iter: O) -> Self {
+//         Flatten { outer: iter, next_iter: None, back_iter: None }
+//     }
+// }
 
-impl <O> Iterator for Flatten<O>
-where 
-O: Iterator, 
-O::Item: IntoIterator, {
-    type Item = <O::Item as IntoIterator>::Item;
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-        if let Some(ref mut inner_iter) = self.next_iter {
-            if let Some(i) = inner_iter.next() {
-                return Some(i);
-            }
-            self.next_iter = None;
-        }
-        if let Some(next_inner_iter) = self.outer.next() {
-            self.next_iter = Some(next_inner_iter.into_iter());
-        } else {
-            self.back_iter.as_mut()?.next();
-        }
-    }
-}
-}
+// impl <O> Iterator for Flatten<O>
+// where 
+// O: Iterator, 
+// O::Item: IntoIterator, {
+//     type Item = <O::Item as IntoIterator>::Item;
+//     fn next(&mut self) -> Option<Self::Item> {
+//         loop {
+//         if let Some(ref mut inner_iter) = self.next_iter {
+//             if let Some(i) = inner_iter.next() {
+//                 return Some(i);
+//             }
+//             self.next_iter = None;
+//         }
+//         if let Some(next_inner_iter) = self.outer.next() {
+//             self.next_iter = Some(next_inner_iter.into_iter());
+//         } else {
+//             self.back_iter.as_mut()?.next();
+//         }
+//     }
+// }
+// }
 
-impl <O> DoubleEndedIterator for Flatten<O> 
-where 
-O: DoubleEndedIterator,
-O::Item:IntoIterator,
-<O::Item as IntoIterator>::IntoIter: DoubleEndedIterator    {
+// impl <O> DoubleEndedIterator for Flatten<O> 
+// where 
+// O: DoubleEndedIterator,
+// O::Item:IntoIterator,
+// <O::Item as IntoIterator>::IntoIter: DoubleEndedIterator    {
 
-    fn next_back(&mut self) -> Option<Self::Item> {
+//     fn next_back(&mut self) -> Option<Self::Item> {
         
-            loop {
-            if let Some(ref mut back_iter) = self.back_iter {
-                if let Some(i) = back_iter.next_back() {
-                    return Some(i);
-                }
-                self.back_iter=None;
-            }
-            if let Some(back_inner_iter) = self.outer.next_back() {
-                self.back_iter = Some(back_inner_iter.into_iter());
-            } else {
-                self.next_iter.as_mut()?.next_back();
-            }
-        }
+//             loop {
+//             if let Some(ref mut back_iter) = self.back_iter {
+//                 if let Some(i) = back_iter.next_back() {
+//                     return Some(i);
+//                 }
+//                 self.back_iter=None;
+//             }
+//             if let Some(back_inner_iter) = self.outer.next_back() {
+//                 self.back_iter = Some(back_inner_iter.into_iter());
+//             } else {
+//                 self.next_iter.as_mut()?.next_back();
+//             }
+//         }
         
-    } 
+//     } 
 
-}
+// }
 
-fn main() {
-    println!("Hello, world!");
-}
+// fn main() {
+//     println!("Hello, world!");
+// }
 
 // pub fn flatten<I>(iter: I) -> Flatten<I> 
 // where 
@@ -229,6 +229,7 @@ O::Item: IntoIterator, {
     }
 
 }
+}
 
 impl <O> DoubleEndedIterator for Flatten<O> 
 where 
@@ -253,6 +254,7 @@ O::Item:IntoIterator,
         
     } 
 
+}
 }
 
 
